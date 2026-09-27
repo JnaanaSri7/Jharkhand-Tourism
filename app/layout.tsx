@@ -1,0 +1,33 @@
+import type { Metadata } from 'next'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
+import { Analytics } from '@vercel/analytics/next'
+import ChatbotWidget from '@/components/chatbot-widget'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: 'TribalTrek - Discover Jharkhand',
+  description: 'Experience the vibrant culture and breathtaking landscapes of Jharkhand with AI-powered tourism platform',
+  generator: 'TribalTrek',
+  icons: {
+    icon: '/Icon.png',
+    shortcut: '/Icon.png',
+    apple: '/Icon.png',
+  },
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        {children}
+        <ChatbotWidget />
+        <Analytics />
+      </body>
+    </html>
+  )
+}

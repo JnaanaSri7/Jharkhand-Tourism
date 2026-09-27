@@ -1,0 +1,213 @@
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m11[m[36m:[m* **Database:** [1;31mMongoDB[m Atlas
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m44[m[36m:[m        │  [1;31mMongoDB[m Atlas  │         │    Groq API     │
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m66[m[36m:[m5. [1;31mMongoDB[m Atlas account
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m80[m[36m:[m# 3. [1;31mMongoDB[m Atlas Configuration
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m82[m[36m:[mThe project uses [1;31mMongoDB[m Atlas for storing tourism-related application data.
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m87[m[36m:[m[1;31mMONGODB[m_URI=your_[1;31mmongodb[m_connection_string
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m90[m[36m:[mThe actual [1;31mMongoDB[m connection string must be stored only in the deployment platform's environment variables.
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m92[m[36m:[m### [1;31mMongoDB[m Atlas Settings
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m94[m[36m:[m1. Open [1;31mMongoDB[m Atlas.
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m100[m[36m:[m7. Verify that the backend can connect to [1;31mMongoDB[m.
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m110[m[36m:[mDo not place the [1;31mMongoDB[m username or password inside the README or source code.
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m145[m[36m:[m[1;31mMONGODB[m_URI=your_[1;31mmongodb[m_uri
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m148[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m295[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m401[m[36m:[m* [ ] [1;31mMongoDB[m connection works
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m408[m[36m:[m* [ ] [1;31mMongoDB[m Atlas connection works
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m455[m[36m:[m[1;31mGROQ_API_KEY[m
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m462[m[36m:[m## [1;31mMongoDB[m Connection Error
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m466[m[36m:[m* [1;31mMongoDB[m URI
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m467[m[36m:[m* [1;31mMongoDB[m username
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m468[m[36m:[m* [1;31mMongoDB[m password
+[35mDEPLOYMENT_GUIDE.md[m[36m:[m[32m522[m[36m:[mTest [1;31mMongoDB[m
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m10[m[36m:[m* **[1;31mMongoDB[m Atlas** – Database
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m49[m[36m:[m* [ ] [1;31mMongoDB[m connection works
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m86[m[36m:[m[1;31mMONGODB[m_URI=your_[1;31mmongodb[m_connection_string
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m89[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m150[m[36m:[m* [ ] [1;31mMongoDB[m connection successful
+[35mQUICK_DEPLOYMENT.md[m[36m:[m[32m233[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mREADME.md[m[36m:[m[32m10[m[36m:[m[![[1;31mMongoDB[m](https://img.shields.io/badge/[1;31mMongoDB[m-Atlas-47A248?logo=[1;31mmongodb[m)](https://www.[1;31mmongodb[m.com/)
+[35mREADME.md[m[36m:[m[32m345[m[36m:[m     │  [1;31mMONGODB[m ATLAS  │                     │     GROQ AI     │
+[35mREADME.md[m[36m:[m[32m462[m[36m:[m* [1;31mMongoDB[m
+[35mREADME.md[m[36m:[m[32m463[m[36m:[m* [1;31mMongoDB[m Atlas
+[35mREADME.md[m[36m:[m[32m871[m[36m:[m[1;31mMONGODB[m_URI=your_[1;31mmongodb[m_connection
+[35mREADME.md[m[36m:[m[32m872[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mREADME.md[m[36m:[m[32m898[m[36m:[mThe application is structured with a **Next.js frontend and Node.js/Express backend**, with [1;31mMongoDB[m Atlas used for cloud database connectivity.
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m7[m[36m:[m- **Express.js Backend** - REST API with [1;31mMongoDB[m integration
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m8[m[36m:[m- **[1;31mMongoDB[m Database** - Cloud database for storing places, users, bookings
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m30[m[36m:[m│  [1;31mMongoDB[m Atlas          │
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m39[m[36m:[m✅ **[1;31mMongoDB[m Connection**
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m42[m[36m:[m- Cluster: `cluster0.kgucvtd.[1;31mmongodb[m.net`
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m130[m[36m:[m- [1;31mMongoDB[m Atlas IP Whitelist: 0.0.0.0/0 (for cloud deployment)
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m183[m[36m:[m**Issue: "Cannot connect to [1;31mMongoDB[m"**
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m184[m[36m:[m- [1;31mMongoDB[m URI is incorrect
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m185[m[36m:[m- Check if [1;31mMongoDB[m Atlas is accessible from Railway
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m186[m[36m:[m- Verify IP whitelist in [1;31mMongoDB[m Atlas
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m197[m[36m:[m- [1;31mMongoDB[m Atlas: https://cloud.[1;31mmongodb[m.com
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m211[m[36m:[m- Database: [1;31mMongoDB[m + Mongoose
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m217[m[36m:[m### Database ([1;31mMongoDB[m)
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m218[m[36m:[m- Service: [1;31mMongoDB[m Atlas
+[35mSETUP_OVERVIEW.md[m[36m:[m[32m227[m[36m:[m3. **Places Database** - [1;31mMongoDB[m with rich tourism data
+[35mTRAVEL_PLANNER_SETUP.md[m[36m:[m[32m87[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mTRAVEL_PLANNER_SETUP.md[m[36m:[m[32m386[m[36m:[m[1;31mGROQ_API_KEY[m=your_[1;31mgroq_api_key[m
+[35mTRAVEL_PLANNER_SETUP.md[m[36m:[m[32m440[m[36m:[m[1;31mGROQ_API_KEY[m=your_production_groq_key
+[35mTRAVEL_PLANNER_SETUP.md[m[36m:[m[32m530[m[36m:[m[1;31mMongoDB[m
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m44[m[36m:[m- **[1;31mMongoDB[m**: NoSQL database for flexible data storage
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m45[m[36m:[m- **Mongoose**: Object Data Modeling (ODM) library for [1;31mMongoDB[m
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m55[m[36m:[m- **GridFS**: [1;31mMongoDB[m's file storage system for images and media
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m64[m[36m:[m- **Smart Fallback**: [1;31mMongoDB[m-based responses when API limits are reached
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m87[m[36m:[m### [1;31mMongoDB[m Collections
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m135[m[36m:[m- 40+ AR/VR images stored using [1;31mMongoDB[m GridFS
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m151[m[36m:[m- **Fallback System**: [1;31mMongoDB[m data when API limits reached
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m282[m[36m:[m[1;31mGEMINI_API_KEY[m=your_[1;31mgemini_api_key[m
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m286[m[36m:[m[1;31mMONGODB[m_URI=[1;31mmongodb[m://localhost:27017/jharkhand-tourism
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m302[m[36m:[m- **Database**: [1;31mMongoDB[m (Port 27017)
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m308[m[36m:[m- **Database**: [1;31mMongoDB[m Atlas for cloud database
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m321[m[36m:[m- **Database Indexing**: [1;31mMongoDB[m indexes for faster queries
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m341[m[36m:[m- **Database Tests**: [1;31mMongoDB[m integration testing
+[35mTourism_Jharkhand_Project_Report.md[m[36m:[m[32m391[m[36m:[m**Technology Stack**: Next.js, Node.js, [1;31mMongoDB[m, AI/ML, Blockchain  
+[35mapp/api/chatbot/message/route.ts[m[36m:[m[32m175[m[36m:[m    const apiKey = process.env.[1;31mGROQ_API_KEY[m
+[35mapp/api/chatbot/message/route.ts[m[36m:[m[32m184[m[36m:[m    if (apiKey && apiKey !== 'your_[1;31mgroq_api_key[m_here' && userText) {
+[35mapp/destinations/page.tsx[m[36m:[m[32m77[m[36m:[m  // Load destinations with images from [1;31mMongoDB[m
+[35mapp/page.tsx[m[36m:[m[32m95[m[36m:[m  // Load random destinations with images from [1;31mMongoDB[m
+[35mbackend/README.md[m[36m:[m[32m3[m[36m:[mA comprehensive Node.js backend API for the Jharkhand Tourism website with [1;31mMongoDB[m integration for storing and serving places data and images.
+[35mbackend/README.md[m[36m:[m[32m19[m[36m:[m- **Database**: [1;31mMongoDB[m with Mongoose ODM
+[35mbackend/README.md[m[36m:[m[32m43[m[36m:[m   [1;31mMONGODB[m_URI=[1;31mmongodb[m://localhost:27017/jharkhand_tourism
+[35mbackend/README.md[m[36m:[m[32m49[m[36m:[m4. **Start [1;31mMongoDB[m**
+[35mbackend/README.md[m[36m:[m[32m50[m[36m:[m   Make sure [1;31mMongoDB[m is running on your system.
+[35mbackend/README.md[m[36m:[m[32m169[m[36m:[m│   └── database.js          # [1;31mMongoDB[m connection
+[35mbackend/README.md[m[36m:[m[32m212[m[36m:[m| `[1;31mMONGODB[m_URI` | [1;31mMongoDB[m connection string | `[1;31mmongodb[m://localhost:27017/jharkhand_tourism` |
+[35mbackend/README.md[m[36m:[m[32m247[m[36m:[m3. Set up proper [1;31mMongoDB[m Atlas connection
+[35mbackend/check-db.js[m[36m:[m[32m6[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI);
+[35mbackend/check-db.js[m[36m:[m[32m7[m[36m:[m    console.log('Connected to [1;31mMongoDB[m');
+[35mbackend/config/database.js[m[36m:[m[32m16[m[36m:[m    const mongoUri = process.env.[1;31mMONGODB[m_URI;
+[35mbackend/config/database.js[m[36m:[m[32m19[m[36m:[m      throw new Error('[1;31mMONGODB[m_URI is not defined in .env file');
+[35mbackend/config/database.js[m[36m:[m[32m28[m[36m:[m    console.log(`[1;31mMongoDB[m Connected: ${conn.connection.host}`);
+[35mbackend/controllers/authController.js[m[36m:[m[32m62[m[36m:[m    // Check [1;31mMongoDB[m if connected
+[35mbackend/controllers/authController.js[m[36m:[m[32m79[m[36m:[m    // Try saving to [1;31mMongoDB[m
+[35mbackend/controllers/authController.js[m[36m:[m[32m153[m[36m:[m    // 1. Try [1;31mMongoDB[m lookup
+[35mbackend/controllers/chatbotController.js[m[36m:[m[32m20[m[36m:[m    const apiKey = process.env.[1;31mGROQ_API_KEY[m;
+[35mbackend/controllers/chatbotController.js[m[36m:[m[32m27[m[36m:[m    if (!apiKey || apiKey === 'your_[1;31mgroq_api_key[m_here') {
+[35mbackend/controllers/chatbotController.js[m[36m:[m[32m28[m[36m:[m      throw new Error('[1;31mGROQ_API_KEY[m is not configured');
+[35mbackend/controllers/paymentController.js[m[36m:[m[32m70[m[36m:[m            // Save to [1;31mMongoDB[m (optional - you can fetch user data from here)
+[35mbackend/controllers/paymentController.js[m[36m:[m[32m72[m[36m:[m                // You can save payment record to [1;31mMongoDB[m here if needed
+[35mbackend/controllers/travelPlannerController.js[m[36m:[m[32m4[m[36m:[mconst [1;31mGROQ_API_KEY[m = process.env.[1;31mGROQ_API_KEY[m;
+[35mbackend/controllers/travelPlannerController.js[m[36m:[m[32m35[m[36m:[m    if (![1;31mGROQ_API_KEY[m || [1;31mGROQ_API_KEY[m === 'your_[1;31mgroq_api_key[m_here') {
+[35mbackend/controllers/travelPlannerController.js[m[36m:[m[32m97[m[36m:[m          'Authorization': `Bearer ${[1;31mGROQ_API_KEY[m}`,
+[35mbackend/docker-compose.yml[m[36m:[m[32m4[m[36m:[m  [1;31mmongodb[m:
+[35mbackend/docker-compose.yml[m[36m:[m[32m15[m[36m:[m      - [1;31mmongodb[m_data:/data/db
+[35mbackend/docker-compose.yml[m[36m:[m[32m28[m[36m:[m      - [1;31mMONGODB[m_URI=[1;31mmongodb[m://admin:password123@[1;31mmongodb[m:27017/jharkhand_tourism?authSource=admin
+[35mbackend/docker-compose.yml[m[36m:[m[32m31[m[36m:[m      - [1;31mmongodb[m
+[35mbackend/docker-compose.yml[m[36m:[m[32m38[m[36m:[m  [1;31mmongodb[m_data:
+[35mbackend/fix-images.js[m[36m:[m[32m10[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI || '[1;31mmongodb[m://localhost:27017/jharkhand-tourism');
+[35mbackend/fix-images.js[m[36m:[m[32m11[m[36m:[m    console.log('✅ Connected to [1;31mMongoDB[m');
+[35mbackend/fix-images.js[m[36m:[m[32m13[m[36m:[m    console.error('❌ [1;31mMongoDB[m connection error:', error);
+[35mbackend/init-mongo.js[m[36m:[m[32m1[m[36m:[m// [1;31mMongoDB[m initialization script for Docker
+[35mbackend/package-lock.json[m[36m:[m[32m23[m[36m:[m        "[1;31mmongodb[m": "^6.0.0",
+[35mbackend/package-lock.json[m[36m:[m[32m974[m[36m:[m    "node_modules/@[1;31mmongodb[m-js/saslprep": {
+[35mbackend/package-lock.json[m[36m:[m[32m976[m[36m:[m      "resolved": "https://registry.npmjs.org/@[1;31mmongodb[m-js/saslprep/-/saslprep-1.3.0.tgz",
+[35mbackend/package-lock.json[m[36m:[m[32m4576[m[36m:[m    "node_modules/[1;31mmongodb[m": {
+[35mbackend/package-lock.json[m[36m:[m[32m4578[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m/-/[1;31mmongodb[m-6.19.0.tgz",
+[35mbackend/package-lock.json[m[36m:[m[32m4582[m[36m:[m        "@[1;31mmongodb[m-js/saslprep": "^1.1.9",
+[35mbackend/package-lock.json[m[36m:[m[32m4584[m[36m:[m        "[1;31mmongodb[m-connection-string-url": "^3.0.0"
+[35mbackend/package-lock.json[m[36m:[m[32m4591[m[36m:[m        "@[1;31mmongodb[m-js/zstd": "^1.1.0 || ^2.0.0",
+[35mbackend/package-lock.json[m[36m:[m[32m4594[m[36m:[m        "[1;31mmongodb[m-client-encryption": ">=6.0.0 <7",
+[35mbackend/package-lock.json[m[36m:[m[32m4602[m[36m:[m        "@[1;31mmongodb[m-js/zstd": {
+[35mbackend/package-lock.json[m[36m:[m[32m4611[m[36m:[m        "[1;31mmongodb[m-client-encryption": {
+[35mbackend/package-lock.json[m[36m:[m[32m4622[m[36m:[m    "node_modules/[1;31mmongodb[m-connection-string-url": {
+[35mbackend/package-lock.json[m[36m:[m[32m4624[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m-connection-string-url/-/[1;31mmongodb[m-connection-string-url-3.0.2.tgz",
+[35mbackend/package-lock.json[m[36m:[m[32m4632[m[36m:[m    "node_modules/[1;31mmongodb[m/node_modules/bson": {
+[35mbackend/package-lock.json[m[36m:[m[32m4649[m[36m:[m        "[1;31mmongodb[m": "5.9.2",
+[35mbackend/package-lock.json[m[36m:[m[32m4673[m[36m:[m    "node_modules/mongoose/node_modules/[1;31mmongodb[m": {
+[35mbackend/package-lock.json[m[36m:[m[32m4675[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m/-/[1;31mmongodb[m-5.9.2.tgz",
+[35mbackend/package-lock.json[m[36m:[m[32m4680[m[36m:[m        "[1;31mmongodb[m-connection-string-url": "^2.6.0",
+[35mbackend/package-lock.json[m[36m:[m[32m4687[m[36m:[m        "@[1;31mmongodb[m-js/saslprep": "^1.1.0"
+[35mbackend/package-lock.json[m[36m:[m[32m4691[m[36m:[m        "@[1;31mmongodb[m-js/zstd": "^1.0.0",
+[35mbackend/package-lock.json[m[36m:[m[32m4693[m[36m:[m        "[1;31mmongodb[m-client-encryption": ">=2.3.0 <3",
+[35mbackend/package-lock.json[m[36m:[m[32m4700[m[36m:[m        "@[1;31mmongodb[m-js/zstd": {
+[35mbackend/package-lock.json[m[36m:[m[32m4706[m[36m:[m        "[1;31mmongodb[m-client-encryption": {
+[35mbackend/package-lock.json[m[36m:[m[32m4714[m[36m:[m    "node_modules/mongoose/node_modules/[1;31mmongodb[m-connection-string-url": {
+[35mbackend/package-lock.json[m[36m:[m[32m4716[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m-connection-string-url/-/[1;31mmongodb[m-connection-string-url-2.6.0.tgz",
+[35mbackend/package.json[m[36m:[m[32m4[m[36m:[m  "description": "Backend API for Jharkhand Tourism website with [1;31mMongoDB[m integration",
+[35mbackend/package.json[m[36m:[m[32m16[m[36m:[m    "[1;31mmongodb[m",
+[35mbackend/package.json[m[36m:[m[32m34[m[36m:[m    "[1;31mmongodb[m": "^6.0.0",
+[35mbackend/quick-check.js[m[36m:[m[32m2[m[36m:[mconst { GridFSBucket } = require('[1;31mmongodb[m');
+[35mbackend/quick-check.js[m[36m:[m[32m9[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI || '[1;31mmongodb[m://localhost:27017/jharkhand-tourism');
+[35mbackend/quick-check.js[m[36m:[m[32m10[m[36m:[m    console.log('✅ Connected to [1;31mMongoDB[m');
+[35mbackend/quick-check.js[m[36m:[m[32m40[m[36m:[m    const apiKey = process.env.[1;31mGEMINI_API_KEY[m;
+[35mbackend/railway.json[m[36m:[m[32m6[m[36m:[m    "[1;31mMONGODB[m_URI": "$[1;31mMONGODB[m_URI",
+[35mbackend/railway.json[m[36m:[m[32m11[m[36m:[m    "[1;31mGROQ_API_KEY[m": "$[1;31mGROQ_API_KEY[m",
+[35mbackend/railway.json[m[36m:[m[32m12[m[36m:[m    "[1;31mGEMINI_API_KEY[m": "$[1;31mGEMINI_API_KEY[m"
+[35mbackend/routes/travelPlanner.js[m[36m:[m[32m45[m[36m:[m    groqConfigured: !!process.env.[1;31mGROQ_API_KEY[m
+[35mbackend/scripts/seed.js[m[36m:[m[32m9[m[36m:[m    console.log('🔌 Connecting to [1;31mMongoDB[m...');
+[35mbackend/seed-data.js[m[36m:[m[32m140[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI);
+[35mbackend/seed-data.js[m[36m:[m[32m141[m[36m:[m    console.log('Connected to [1;31mMongoDB[m');
+[35mbackend/server.js[m[36m:[m[32m31[m[36m:[m// Keep the process health check available even when [1;31mMongoDB[m is unreachable.
+[35mbackend/server.js[m[36m:[m[32m47[m[36m:[m    console.error('[1;31mMongoDB[m connection middleware error:', err.message);
+[35mbackend/test-chatbot.js[m[36m:[m[32m8[m[36m:[m// Connect to [1;31mMongoDB[m
+[35mbackend/test-chatbot.js[m[36m:[m[32m11[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI || '[1;31mmongodb[m://localhost:27017/jharkhand-tourism');
+[35mbackend/test-chatbot.js[m[36m:[m[32m12[m[36m:[m    console.log('✅ Connected to [1;31mMongoDB[m');
+[35mbackend/test-chatbot.js[m[36m:[m[32m14[m[36m:[m    console.error('❌ [1;31mMongoDB[m connection error:', error);
+[35mbackend/test-groq.js[m[36m:[m[32m7[m[36m:[m  console.log('API Key (first 20 chars):', process.env.[1;31mGROQ_API_KEY[m?.substring(0, 20) + '...');
+[35mbackend/test-groq.js[m[36m:[m[32m11[m[36m:[m      apiKey: process.env.[1;31mGROQ_API_KEY[m
+[35mbackend/test-travel-planner.js[m[36m:[m[32m36[m[36m:[m    if (process.env.[1;31mGROQ_API_KEY[m && process.env.[1;31mGROQ_API_KEY[m !== 'your_[1;31mgroq_api_key[m_here') {
+[35mbackend/test-travel-planner.js[m[36m:[m[32m107[m[36m:[m    console.log('2. Check if [1;31mGROQ_API_KEY[m is set in backend/.env file');
+[35mbackend/test-travel-planner.js[m[36m:[m[32m108[m[36m:[m    console.log('3. Verify [1;31mMongoDB[m connection is working');
+[35mbackend/test/api.test.js[m[36m:[m[32m6[m[36m:[mconst testDbUri = process.env.[1;31mMONGODB[m_TEST_URI || '[1;31mmongodb[m://localhost:27017/jharkhand_tourism_test';
+[35mbackend/upload-complete-db.js[m[36m:[m[32m4[m[36m:[mconst { GridFSBucket } = require('[1;31mmongodb[m');
+[35mbackend/upload-complete-db.js[m[36m:[m[32m12[m[36m:[m// Connect to [1;31mMongoDB[m
+[35mbackend/upload-complete-db.js[m[36m:[m[32m15[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI || '[1;31mmongodb[m://localhost:27017/jharkhand-tourism');
+[35mbackend/upload-complete-db.js[m[36m:[m[32m16[m[36m:[m    console.log('✅ Connected to [1;31mMongoDB[m');
+[35mbackend/upload-complete-db.js[m[36m:[m[32m24[m[36m:[m    console.error('❌ [1;31mMongoDB[m connection error:', error);
+[35mbackend/upload-complete-db.js[m[36m:[m[32m229[m[36m:[m    console.log(`📤 Uploading ${uniquePlaces.length} unique places to [1;31mMongoDB[m...`);
+[35mbackend/upload-complete-db.js[m[36m:[m[32m243[m[36m:[m    console.log(`🎉 Successfully uploaded ${totalCount} places to [1;31mMongoDB[m!`);
+[35mbackend/upload-db-data.js[m[36m:[m[32m9[m[36m:[m// Connect to [1;31mMongoDB[m
+[35mbackend/upload-db-data.js[m[36m:[m[32m12[m[36m:[m    await mongoose.connect(process.env.[1;31mMONGODB[m_URI || '[1;31mmongodb[m://localhost:27017/jharkhand-tourism');
+[35mbackend/upload-db-data.js[m[36m:[m[32m13[m[36m:[m    console.log('✅ Connected to [1;31mMongoDB[m');
+[35mbackend/upload-db-data.js[m[36m:[m[32m15[m[36m:[m    console.error('❌ [1;31mMongoDB[m connection error:', error);
+[35mbackend/upload-db-data.js[m[36m:[m[32m130[m[36m:[m    console.log(`📤 Uploading ${uniquePlaces.length} unique places to [1;31mMongoDB[m...`);
+[35mbackend/upload-db-data.js[m[36m:[m[32m142[m[36m:[m    console.log(`🎉 Successfully uploaded ${totalCount} places to [1;31mMongoDB[m!`);
+[35mbackend/utils/dbConnection.js[m[36m:[m[32m6[m[36m:[m    console.log('🔌 Testing [1;31mMongoDB[m connection...');
+[35mbackend/utils/dbConnection.js[m[36m:[m[32m8[m[36m:[m    const conn = await mongoose.connect(process.env.[1;31mMONGODB[m_URI, {
+[35mbackend/utils/dbConnection.js[m[36m:[m[32m13[m[36m:[m    console.log(`✅ [1;31mMongoDB[m Connected: ${conn.connection.host}`);
+[35mbackend/utils/dbConnection.js[m[36m:[m[32m29[m[36m:[m    console.error('❌ [1;31mMongoDB[m connection failed:', error.message);
+[35mbackend/utils/fallback-data.js[m[36m:[m[32m5[m[36m:[m * Fallback data loader for when [1;31mMongoDB[m is unavailable
+[35mbackend/utils/fallback-data.js[m[36m:[m[32m51[m[36m:[m   * Search places by keywords (fallback for [1;31mMongoDB[m queries)
+[35mbackend/utils/fallback-data.js[m[36m:[m[32m111[m[36m:[m   * Get all places (fallback for [1;31mMongoDB[m count/list)
+[35mbackend/utils/fallback-data.js[m[36m:[m[32m164[m[36m:[m   * Get statistics (fallback for [1;31mMongoDB[m aggregation)
+[35mbackend/utils/linkImages.js[m[36m:[m[32m3[m[36m:[mconst { GridFSBucket } = require('[1;31mmongodb[m');
+[35mbackend/utils/linkImages.js[m[36m:[m[32m94[m[36m:[m// Connect to [1;31mMongoDB[m and run the linking
+[35mbackend/utils/linkImages.js[m[36m:[m[32m95[m[36m:[mmongoose.connect('[1;31mmongodb[m://localhost:27017/jharkhand_tourism')
+[35mbackend/utils/linkImages.js[m[36m:[m[32m97[m[36m:[m    console.log('📦 Connected to [1;31mMongoDB[m');
+[35mpackage-lock.json[m[36m:[m[32m62[m[36m:[m        "[1;31mmongodb[m": "^7.6.0",
+[35mpackage-lock.json[m[36m:[m[32m171[m[36m:[m    "node_modules/@[1;31mmongodb[m-js/saslprep": {
+[35mpackage-lock.json[m[36m:[m[32m173[m[36m:[m      "resolved": "https://registry.npmjs.org/@[1;31mmongodb[m-js/saslprep/-/saslprep-1.5.0.tgz",
+[35mpackage-lock.json[m[36m:[m[32m3767[m[36m:[m    "node_modules/[1;31mmongodb[m": {
+[35mpackage-lock.json[m[36m:[m[32m3769[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m/-/[1;31mmongodb[m-7.6.0.tgz",
+[35mpackage-lock.json[m[36m:[m[32m3773[m[36m:[m        "@[1;31mmongodb[m-js/saslprep": "^1.4.11",
+[35mpackage-lock.json[m[36m:[m[32m3775[m[36m:[m        "[1;31mmongodb[m-connection-string-url": "^7.0.1"
+[35mpackage-lock.json[m[36m:[m[32m3782[m[36m:[m        "@[1;31mmongodb[m-js/zstd": "^7.0.0",
+[35mpackage-lock.json[m[36m:[m[32m3785[m[36m:[m        "[1;31mmongodb[m-client-encryption": "^7.2.0",
+[35mpackage-lock.json[m[36m:[m[32m3793[m[36m:[m        "@[1;31mmongodb[m-js/zstd": {
+[35mpackage-lock.json[m[36m:[m[32m3802[m[36m:[m        "[1;31mmongodb[m-client-encryption": {
+[35mpackage-lock.json[m[36m:[m[32m3813[m[36m:[m    "node_modules/[1;31mmongodb[m-connection-string-url": {
+[35mpackage-lock.json[m[36m:[m[32m3815[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m-connection-string-url/-/[1;31mmongodb[m-connection-string-url-7.0.2.tgz",
+[35mpackage-lock.json[m[36m:[m[32m3826[m[36m:[m    "node_modules/[1;31mmongodb[m-connection-string-url/node_modules/tr46": {
+[35mpackage-lock.json[m[36m:[m[32m3838[m[36m:[m    "node_modules/[1;31mmongodb[m-connection-string-url/node_modules/webidl-conversions": {
+[35mpackage-lock.json[m[36m:[m[32m3847[m[36m:[m    "node_modules/[1;31mmongodb[m-connection-string-url/node_modules/whatwg-url": {
+[35mpackage-lock.json[m[36m:[m[32m3868[m[36m:[m        "[1;31mmongodb[m": "~7.5",
+[35mpackage-lock.json[m[36m:[m[32m3882[m[36m:[m    "node_modules/mongoose/node_modules/[1;31mmongodb[m": {
+[35mpackage-lock.json[m[36m:[m[32m3884[m[36m:[m      "resolved": "https://registry.npmjs.org/[1;31mmongodb[m/-/[1;31mmongodb[m-7.5.0.tgz",
+[35mpackage-lock.json[m[36m:[m[32m3888[m[36m:[m        "@[1;31mmongodb[m-js/saslprep": "^1.4.11",
+[35mpackage-lock.json[m[36m:[m[32m3890[m[36m:[m        "[1;31mmongodb[m-connection-string-url": "^7.0.1"
+[35mpackage-lock.json[m[36m:[m[32m3897[m[36m:[m        "@[1;31mmongodb[m-js/zstd": "^7.0.0",
+[35mpackage-lock.json[m[36m:[m[32m3900[m[36m:[m        "[1;31mmongodb[m-client-encryption": "^7.2.0",
+[35mpackage-lock.json[m[36m:[m[32m3908[m[36m:[m        "@[1;31mmongodb[m-js/zstd": {
+[35mpackage-lock.json[m[36m:[m[32m3917[m[36m:[m        "[1;31mmongodb[m-client-encryption": {
+[35mpackage.json[m[36m:[m[32m65[m[36m:[m    "[1;31mmongodb[m": "^7.6.0",
+[35msetup.js[m[36m:[m[32m19[m[36m:[m// Check if [1;31mMongoDB[m is running
+[35msetup.js[m[36m:[m[32m22[m[36m:[m  console.log('✅ [1;31mMongoDB[m is running');
+[35msetup.js[m[36m:[m[32m24[m[36m:[m  console.error('❌ Please start [1;31mMongoDB[m first');
+[35msetup.js[m[36m:[m[32m25[m[36m:[m  console.log('   Run: mongod or start [1;31mMongoDB[m service');
+[35msetup.js[m[36m:[m[32m59[m[36m:[m  console.log('   Please update [1;31mMongoDB[m connection string if needed');
+[35msetup.js[m[36m:[m[32m79[m[36m:[mconsole.log('\n💡 Make sure [1;31mMongoDB[m is running before starting the servers');

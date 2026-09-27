@@ -1,0 +1,41 @@
+{
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/api/places",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/places/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/images/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/auth/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/payment/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/travel-planner/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/chatbot/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/docs",
+      "destination": "/api/index.js"
+    }
+  ]
+}

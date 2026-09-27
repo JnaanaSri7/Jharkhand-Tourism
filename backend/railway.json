@@ -1,0 +1,14 @@
+{
+  "builder": "nixpacks",
+  "buildCommand": "npm install",
+  "startCommand": "node server.js",
+  "envAlias": {
+    "MONGODB_URI": "$MONGODB_URI",
+    "PORT": "$PORT",
+    "NODE_ENV": "$NODE_ENV",
+    "JWT_SECRET": "$JWT_SECRET",
+    "FRONTEND_URL": "$FRONTEND_URL",
+    "GROQ_API_KEY": "$GROQ_API_KEY",
+    "GEMINI_API_KEY": "$GEMINI_API_KEY"
+  }
+}

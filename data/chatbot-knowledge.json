@@ -1,0 +1,58 @@
+{
+  "scope": "Verified facts available in the Jharkhand Tourism project. Do not infer missing facts.",
+  "destinations": [
+    {
+      "name": "Hundru Falls",
+      "facts": ["A waterfall on the Subarnarekha River", "The project destination data gives its height as 98 metres", "The project places it in Ranchi district", "The project highlights rock formations, a natural pool and scenic views", "The project lists photography, picnicking, rock climbing and swimming as activities"]
+    },
+    {
+      "name": "Netarhat",
+      "facts": ["A hill station in Latehar district", "The project data gives its elevation as 1,128 metres", "The project highlights Sunrise Point, Sunset Point, Netarhat Dam, dense forests, pleasant climate and Magnolia Point", "The project lists trekking, photography, nature walks and camping as activities", "The project lists October to March as its best time"]
+    },
+    {
+      "name": "Baidyanath Temple",
+      "facts": ["A temple destination in Deoghar", "The project describes it as one of the twelve Jyotirlingas dedicated to Lord Shiva", "The project describes it as a major pilgrimage site", "The project highlights the Shravan Mela, spiritual ambience and historic temple complex", "The project lists darshan, spiritual rituals, temple tours and photography as activities"]
+    },
+    {
+      "name": "Trikut Hill",
+      "facts": ["A destination near Deoghar", "The project highlights its three peaks, ropeway, trekking trails, scenic views and spiritual significance", "The project lists trekking, ropeway rides, photography, nature walks and pilgrimage as activities"]
+    },
+    {
+      "name": "Parasnath Hill",
+      "facts": ["A destination in Giridih district", "The project describes it as Jharkhand's highest peak at 1,365 metres and a Jain pilgrimage site", "The project highlights Jain temples, panoramic views, spiritual significance and trekking trails", "The project lists temple visits, trekking, photography and meditation as activities"]
+    },
+    {
+      "name": "Canary Hill",
+      "facts": ["A hill destination near Hazaribagh", "The project highlights its watchtower, panoramic views, sunset point and lush greenery", "The project lists photography, nature walks and sightseeing as activities"]
+    },
+    {
+      "name": "Dassam Falls",
+      "facts": ["The project lists Dassam Falls as a notable waterfall destination in Jharkhand", "It is included in the project's waterfall and destination analytics", "The project does not provide a verified district, height, distance, entry fee, opening hours, facilities, activities or current access details"]
+    },
+    {
+      "name": "Betla National Park",
+      "facts": ["The project lists Betla National Park as a Jharkhand wildlife destination", "It is included in the project's community and tourism planning content", "The project does not provide verified current safari rules, fees, timings, animal sightings, facilities or accommodation details"]
+    },
+    {
+      "name": "Dalma Wildlife Sanctuary",
+      "facts": ["The project lists Dalma Wildlife Sanctuary as a Jharkhand wildlife destination", "It is included in the project's wildlife and trip-planning content", "The project does not provide verified current safari rules, fees, timings, animal sightings, facilities or accommodation details"]
+    },
+    {
+      "name": "Moti Jharna Waterfall",
+      "facts": ["A waterfall destination near Sahibganj", "The project describes it as a serene waterfall through rocky terrain", "The project highlights sparkling water, rocky terrain, lush green surroundings and a peaceful atmosphere", "The project lists photography, picnicking, short trekking and nature walks as activities"]
+    },
+    {
+      "name": "Jawaharlal Nehru Biological Park",
+      "facts": ["A wildlife destination in Bokaro", "The project describes it as a zoological park with animals and birds", "The project highlights a scenic lake and boating facility", "The project lists wildlife viewing, boating, photography, family outings and nature walks as activities"]
+    }
+  ],
+  "categories": {
+    "waterfalls": ["Hundru Falls", "Dassam Falls", "Bhatinda Falls", "Usri Falls", "Lodh Falls", "Panchghagh Falls", "Hirni Falls", "Tamasin Waterfall", "Moti Jharna Waterfall"],
+    "temples": ["Baidyanath Temple", "Jagannath Mandir", "Basukinath Mandir", "Angrabari Temple", "Mahadebsal Temple"],
+    "wildlife": ["Betla National Park", "Dalma Wildlife Sanctuary", "Jawaharlal Nehru Biological Park"],
+    "culture": ["The project discusses tribal communities, Sohrai and Khovar art, Munda cultural homestays, and local guide-led experiences"],
+    "food": ["The project mentions Dhuska, Ghugni, Litti Chokha, Chilka Roti, Arsa Roti and Rugra"],
+    "festivals": ["The project mentions Sarhul, Karma and Sohrai"],
+    "planning": ["The project destination data supports waterfall, temple, hill, wildlife and cultural itinerary suggestions", "Do not promise prices, timings, transport availability or facilities unless they are present in the supplied facts"]
+  }
+}
