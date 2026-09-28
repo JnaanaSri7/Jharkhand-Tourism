@@ -106,66 +106,54 @@ export default function ChatbotWidget() {
   }
 
   const getInstantResponse = (query: string, lang: string, hasImage?: boolean): string => {
-    const text = (query || '').toLowerCase().trim();
+    const text = (query || '').toLowerCase().trim()
+
     if (hasImage && (!text || text.includes('shared an image'))) {
       return lang === 'hi'
-        ? 'आपकी फोटो प्राप्त हो गई है! यह झारखंड के हुंडरू फॉल्स या पतरातू घाटी जैसा सुंदर दृश्य लगता है।'
-        : 'Thank you for sharing this image! This looks like a scenic location in Jharkhand such as Hundru Falls or Patratu Valley.';
+        ? 'आपकी फोटो प्राप्त हुई है। वर्तमान कॉन्फ़िगरेशन में इमेज समझने की क्षमता उपलब्ध नहीं है, इसलिए मैं टेक्स्ट-आधारित Jharkhand पर्यटन सहायता दे सकता हूँ।'
+        : 'I received the image, but the current model configuration does not support image understanding. I can still help with text-based Jharkhand tourism questions.'
     }
+
     if (lang === 'hi' || /[\u0900-\u097F]/.test(text)) {
-      if (text.includes('झरना') || text.includes('waterfall') || text.includes('फॉल्स')) {
-        return 'झारखंड में रांची के पास हुंडरू फॉल्स (98m), दशम फॉल्स, जोन्हा फॉल्स और पंचघाघ फॉल्स प्रसिद्ध जलप्रपात हैं।';
-      }
-      if (text.includes('मंदिर') || text.includes('temple') || text.includes('देवघर')) {
-        return 'देवघर का प्रसिद्ध बैद्यनाथ ज्योतिर्लिंग और रजरप्पा का छिन्नमस्तिका मंदिर प्रमुख धार्मिक स्थल हैं।';
-      }
-      if (text.includes('रांची') || text.includes('ranchi')) {
-        return 'रांची झारखंड की राजधानी है, जो अपने मनमोहक झरनों, रॉक गार्डन और टैगोर हिल के लिए जानी जाती है।';
-      }
-      if (text.includes('खाना') || text.includes('food') || text.includes('धुसका')) {
-        return 'झारखंड के प्रमुख व्यंजनों में धुसका, लिट्टी-चोखा, चिलका रोटी और पीठा शामिल हैं।';
-      }
-      return 'मैं झारखंड पर्यटन AI हूँ! आप मुझसे झरने, मंदिर, राष्ट्रीय उद्यान या खान-पान के बारे में पूछ सकते हैं।';
+      return 'मैं झारखंड पर्यटन पर मदद करने के लिए तैयार हूँ। कृपया जलप्रपात, मंदिर, वन्यजीव, संस्कृति, खानपान, या यात्रा योजना के बारे में पूछें।'
     }
+
     if (text.includes('waterfall') || text.includes('falls') || text.includes('hundru') || text.includes('dassam')) {
-      return 'Jharkhand features spectacular waterfalls around Ranchi including Hundru Falls (320 ft), Dassam Falls, Jonha Falls, and Panchghagh Falls.';
+      return 'I can help with Jharkhand waterfalls and destinations. Please share the specific place or your travel plan, and I will answer with the project-based context.'
     }
-    if (text.includes('temple') || text.includes('baidyanath') || text.includes('deoghar') || text.includes('rajrappa')) {
-      return 'Famous spiritual sites in Jharkhand include the sacred Baidyanath Jyotirlinga Temple in Deoghar and Chhinnamasta Temple at Rajrappa.';
-    }
-    if (text.includes('ranchi') || text.includes('patratu') || text.includes('capital')) {
-      return 'Ranchi is the scenic capital of Jharkhand, famous for Patratu Valley viewpoints, Tagore Hill, Kanke Dam, and Rock Garden.';
-    }
-    if (text.includes('wildlife') || text.includes('betla') || text.includes('dalma') || text.includes('park')) {
-      return 'Betla National Park is home to elephants, tigers, and bison, while Dalma Wildlife Sanctuary offers stunning views and elephant habitats.';
-    }
+
     if (text.includes('food') || text.includes('cuisine') || text.includes('eat') || text.includes('dhuska')) {
-      return 'Must-try Jharkhand delicacies include crisp Dhuska with spicy Ghugni, authentic Litti Chokha, and sweet Arsa Roti.';
+      return 'I can suggest Jharkhand foods to try, such as Dhuska, Litti Chokha, and Chilkha Roti, based on the project knowledge.'
     }
-    return 'Welcome to Jharkhand Tourism AI! You can ask about waterfalls (Hundru, Dassam), spiritual temples (Baidyanath Dham), Betla National Park, or local cuisine (Dhuska).';
-  };
+
+    if (text.includes('itinerary') || text.includes('trip plan') || text.includes('one day') || text.includes('three day')) {
+      return 'I can help build a practical Jharkhand itinerary using the destinations in the project, such as Ranchi, Deoghar, Netarhat, and Betla.'
+    }
+
+    return 'I can help with Jharkhand tourism, travel planning, waterfalls, temples, wildlife, food, and culture.'
+  }
 
   const sendMessage = async (overrideText?: string) => {
-    const currentImage = selectedImage;
-    const rawText = typeof overrideText === 'string' ? overrideText : inputMessage;
-    const userMessage = rawText.trim() || (currentImage ? 'Shared an image of Jharkhand tourism destination' : '');
-    if (!userMessage && !currentImage) return;
+    const currentImage = selectedImage
+    const rawText = typeof overrideText === 'string' ? overrideText : inputMessage
+    const userMessage = rawText.trim() || (currentImage ? 'Shared an image of Jharkhand tourism destination' : '')
+    if (!userMessage && !currentImage) return
 
-    setInputMessage('');
-    setSelectedImage(null);
-    setMessages(prev => [...prev, { 
+    setInputMessage('')
+    setSelectedImage(null)
+    setMessages(prev => [...prev, {
       id: Date.now().toString(),
-      text: userMessage, 
+      text: userMessage,
       isUser: true,
       timestamp: new Date(),
       imageUrl: currentImage || undefined
-    }]);
-    setIsLoading(true);
-    setIsTyping(true);
+    }])
+    setIsLoading(true)
+    setIsTyping(true)
 
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 15000)
 
       const conversationHistory = messages
         .filter(message => message.text)
@@ -173,7 +161,7 @@ export default function ChatbotWidget() {
         .map(message => ({
           role: message.isUser ? 'user' : 'assistant',
           content: message.text
-        }));
+        }))
 
       const response = await fetch('/api/chatbot/message', {
         method: 'POST',
@@ -184,35 +172,43 @@ export default function ChatbotWidget() {
           language: selectedLanguage,
           image: currentImage || null,
           conversationHistory
-        }),
-      });
+        })
+      })
 
-      clearTimeout(timeoutId);
-      const data = await response.json();
-      setIsTyping(false);
-      
-      const replyText = data && data.response 
-        ? data.response 
-        : getInstantResponse(userMessage, selectedLanguage, !!currentImage);
+      clearTimeout(timeoutId)
+      const data = await response.json()
+      setIsTyping(false)
 
-      setMessages(prev => [...prev, { 
+      if (response.ok && data?.success && typeof data.response === 'string') {
+        setMessages(prev => [...prev, {
+          id: Date.now().toString(),
+          text: data.response,
+          isUser: false,
+          timestamp: new Date(),
+          language: data?.detectedLanguage || selectedLanguage
+        }])
+        return
+      }
+
+      const fallbackText = data?.response || data?.error || getInstantResponse(userMessage, selectedLanguage, !!currentImage)
+      setMessages(prev => [...prev, {
         id: Date.now().toString(),
-        text: replyText, 
+        text: fallbackText,
         isUser: false,
         timestamp: new Date(),
         language: data?.detectedLanguage || selectedLanguage
-      }]);
+      }])
     } catch (error) {
-      console.warn('Chatbot API network timeout or error, using instant response:', error);
-      setIsTyping(false);
-      setMessages(prev => [...prev, { 
+      console.warn('Chatbot API network timeout or error, using instant response:', error)
+      setIsTyping(false)
+      setMessages(prev => [...prev, {
         id: Date.now().toString(),
-        text: getInstantResponse(userMessage, selectedLanguage, !!currentImage), 
+        text: getInstantResponse(userMessage, selectedLanguage, !!currentImage),
         isUser: false,
         timestamp: new Date()
-      }]);
+      }])
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 

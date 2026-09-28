@@ -26,10 +26,6 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/api/chatbot/(.*)",
-      "destination": "/api/index.js"
-    },
-    {
       "source": "/api/health",
       "destination": "/api/index.js"
     },
