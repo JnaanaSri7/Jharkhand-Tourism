@@ -115,7 +115,14 @@ const generateItinerary = async (req, res) => {
       .map((match) => Number(match[1]));
     const hasExactDayCount = dayNumbers.length === durationDays
       && dayNumbers.every((dayNumber, index) => dayNumber === index + 1);
-    const hasMarkdownTable = itinerary.split('\n').some((line) => /^\s*\|.*\|\s*$/.test(line));
+    const itineraryLines = itinerary.split(/\r?\n/);
+    const hasMarkdownTable = itineraryLines.some((line, index) => {
+      const nextLine = itineraryLines[index + 1] || '';
+      return /^\s*\|.*\|\s*$/.test(line)
+        || /\|\s*:?-{3,}:?\s*\|/.test(line)
+        || /\|\s*(?:time|activity)\s*\|/i.test(line)
+        || (line.includes('|') && nextLine.includes('|'));
+    });
     const finalItinerary = hasExactDayCount && !hasMarkdownTable
       ? itinerary
       : generateFallbackItinerary(req.body);
