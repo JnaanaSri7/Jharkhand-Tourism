@@ -3,6 +3,11 @@ const axios = require('axios');
 // Groq API configuration
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_BASE_URL = "https://api.groq.com/openai/v1";
+const BUDGET_ESTIMATES = {
+  Budget: '₹2,000-5,000',
+  Medium: '₹5,000-15,000',
+  Luxury: '₹15,000+'
+};
 
 const parseDurationDays = (duration) => {
   if (Number.isInteger(duration) && duration > 0) return duration;
@@ -51,39 +56,31 @@ const generateItinerary = async (req, res) => {
       });
     }
 
-    // Create detailed prompt for Jharkhand tourism
+    const budgetEstimate = BUDGET_ESTIMATES[budget] || 'based on your selected budget';
+
+    // Keep the generated itinerary concise and easy to scan.
     const prompt = `
-You are a professional travel planner specializing in Jharkhand, India tourism. Create a detailed, day-by-day travel itinerary with the following specifications:
+  Create a concise, practical Jharkhand travel itinerary using these preferences:
+  Destination: ${destination}, Jharkhand
+  Duration: exactly ${durationDays} days
+  Interests: ${interests.join(', ')}
+  Budget: ${budget} (estimated total range: ${budgetEstimate} per person)
+  Group size: ${groupSize || 'Not specified'}
+  Accommodation: ${accommodation || 'Hotels'}
 
-IMPORTANT: Focus ONLY on attractions in and around ${destination}, Jharkhand. Do NOT include attractions from other cities unless they are within reasonable travel distance (max 50km) from ${destination}.
+  Output plain text with bullets, not a Markdown table. Start with:
+  ${durationDays} Day Jharkhand Itinerary - ${destination}
 
-Destination: ${destination}, Jharkhand, India
-Duration: exactly ${durationDays} calendar day${durationDays === 1 ? '' : 's'} (Day 1 through Day ${durationDays})
-REQUIRED: Include exactly ${durationDays} numbered day sections, one for every day from Day 1 to Day ${durationDays}. Do not omit, combine, or add any days. The itinerary must end on Day ${durationDays}.
-Interests: ${Array.isArray(interests) ? interests.join(', ') : interests}
-Budget: ${budget}
-Group Size: ${groupSize || 'Not specified'}
-Accommodation: ${accommodation || 'Hotels'}
+  Include exactly ${durationDays} sequential day sections, from Day 1 to Day ${durationDays}. Format each heading as "### Day N: Explore ${destination}". Give each day around five short, time-based activity bullets beginning with "• ", including meals and a return to accommodation. Choose practical attractions near ${destination}, prioritize the selected interests, and do not repeat an attraction within the same day.
 
-LOCATION-SPECIFIC GUIDELINES:
-- If destination is Ranchi: Include Hundru Falls, Rock Garden, Jagannath Temple Ranchi, Kanke Dam
-- If destination is Deoghar: Include Baidyanath Temple, Nandan Pahar, Tapovan Caves, Satsang Ashram
-- If destination is Jamshedpur: Include Jubilee Park, Tata Steel Zoological Park, Dalma Wildlife Sanctuary, Dimna Lake
-- If destination is Bokaro: Include Bokaro Steel Plant, City Park, Garga Dam, Parasnath Hills (nearby)
-- If destination is Hazaribagh: Include Hazaribagh Wildlife Sanctuary, Canary Hill, Konar Dam, Rajrappa Temple
-
-Please provide:
-1. Day-by-day breakdown with specific timings
-2. Attractions ONLY in or near ${destination} (within 50km radius)
-3. Estimated costs in Indian Rupees (₹)
-4. Local transportation within ${destination}
-5. Local food recommendations specific to ${destination}
-6. Cultural insights about ${destination} area
-7. Best times to visit each location in ${destination}
-
-DO NOT mix attractions from different cities. Keep all recommendations focused on ${destination} and its immediate surroundings.
-
-Format the response as a structured itinerary with clear day divisions, timings, activities, and costs.
+  Include costs only as approximate estimates, never as live or verified prices. End with these concise lines:
+  Estimated Total Budget: ${budgetEstimate} per person (approximate estimate; not live-verified)
+  Best Time to Visit: October to March
+  Travel Tips:
+  • Carry comfortable shoes.
+  • Keep drinking water with you.
+  • Check local weather before visiting waterfalls.
+  • Plan local transportation in advance.
 `;
 
     // Call Groq API
@@ -118,7 +115,10 @@ Format the response as a structured itinerary with clear day divisions, timings,
       .map((match) => Number(match[1]));
     const hasExactDayCount = dayNumbers.length === durationDays
       && dayNumbers.every((dayNumber, index) => dayNumber === index + 1);
-    const finalItinerary = hasExactDayCount ? itinerary : generateFallbackItinerary(req.body);
+    const hasMarkdownTable = itinerary.split('\n').some((line) => /^\s*\|.*\|\s*$/.test(line));
+    const finalItinerary = hasExactDayCount && !hasMarkdownTable
+      ? itinerary
+      : generateFallbackItinerary(req.body);
 
     // Return successful response
     res.json({
@@ -160,7 +160,7 @@ Format the response as a structured itinerary with clear day divisions, timings,
 /**
  * Generate fallback itinerary when AI is unavailable
  */
-const generateFallbackItinerary = ({ destination, duration, interests, budget }) => {
+const generateFallbackItinerary = ({ destination, duration, interests, budget, groupSize, accommodation }) => {
   const durationDays = parseDurationDays(duration) || 1;
   // Destination-specific attractions
   const destinationAttractions = {
@@ -208,56 +208,45 @@ const generateFallbackItinerary = ({ destination, duration, interests, budget })
     }
   };
 
-  const destInfo = destinationAttractions[destination] || destinationAttractions['Ranchi'];
-  
-  // Select attractions based on interests
-  const selectedAttractions = [];
-  if (Array.isArray(interests)) {
-    interests.forEach(interest => {
-      const key = interest.toLowerCase();
-      if (key.includes('nature') || key.includes('waterfall')) {
-        selectedAttractions.push('Hundru Falls', 'Dassam Falls');
-      }
-      if (key.includes('temple') || key.includes('culture') || key.includes('spirituality')) {
-        selectedAttractions.push('Baidyanath Temple', 'Jagannath Temple');
-      }
-      if (key.includes('wildlife') || key.includes('adventure')) {
-        selectedAttractions.push('Betla National Park', 'Dalma Wildlife Sanctuary');
-      }
-    });
-  }
-
-  const additionalDayThemes = [
-    'Wildlife & Scenic Views',
-    'Local Heritage & Cuisine',
-    'Outdoor Discovery',
-    'Nearby Attractions & Leisure'
-  ];
+  const destInfo = destinationAttractions[destination] || {
+    attractions: [
+      `a local landmark in ${destination}`,
+      `a nearby nature spot in ${destination}`,
+      `a local cultural site in ${destination}`,
+      `local surroundings in ${destination}`
+    ]
+  };
+  const interestsText = Array.isArray(interests) && interests.length
+    ? interests.join(', ')
+    : 'local highlights';
+  const budgetEstimate = BUDGET_ESTIMATES[budget] || 'based on your selected budget';
+  const accommodationName = accommodation || 'accommodation';
   const itineraryDays = Array.from({ length: durationDays }, (_, index) => {
     const dayNumber = index + 1;
-    if (dayNumber === 1) {
-      return `**Day 1: ${destInfo.day1}**\n- 9:00 AM: Visit ${destInfo.morning} (₹50)\n- 11:00 AM: ${destInfo.afternoon} (₹100)\n- 2:00 PM: Local lunch at ${destination} (₹300)\n- 4:00 PM: ${destInfo.evening} (₹200)`;
-    }
-    if (dayNumber === 2) {
-      return `**Day 2: Cultural & Nature Tour**\n- 8:00 AM: ${selectedAttractions[0] || destInfo.attractions[1]} (₹150)\n- 12:00 PM: Traditional Jharkhand lunch (₹250)\n- 3:00 PM: ${selectedAttractions[1] || destInfo.attractions[2]} (₹100)\n- 6:00 PM: Local market visit in ${destination} (₹200)`;
-    }
-
-    const attraction = destInfo.attractions[(dayNumber - 1) % destInfo.attractions.length];
-    const theme = additionalDayThemes[(dayNumber - 3) % additionalDayThemes.length];
-    return `**Day ${dayNumber}: ${theme}**\n- 9:00 AM: Explore ${attraction}\n- 12:00 PM: Enjoy traditional Jharkhand cuisine in ${destination}\n- 3:00 PM: Discover another local attraction or cultural experience`;
+    const attractionCount = destInfo.attractions.length;
+    const firstAttractionIndex = ((dayNumber - 1) * 3) % attractionCount;
+    const morningAttraction = destInfo.attractions[firstAttractionIndex];
+    const afternoonAttraction = destInfo.attractions[(firstAttractionIndex + 1) % attractionCount];
+    const eveningAttraction = destInfo.attractions[(firstAttractionIndex + 2) % attractionCount];
+    return `### Day ${dayNumber}: Explore ${destination}\n\n• 9:00 AM: Visit ${morningAttraction} (estimated cost: ₹50)\n\n• 12:30 PM: Local lunch in ${destination} (estimated cost: ₹300)\n\n• 2:30 PM: Explore ${afternoonAttraction} (estimated cost: ₹100)\n\n• 5:30 PM: Explore ${eveningAttraction} and local surroundings (estimated cost: ₹200)\n\n• 7:00 PM: Return to accommodation`;
   });
 
-  return `
-**${durationDays} Day${durationDays === 1 ? '' : 's'} Jharkhand Itinerary - ${destination}**
+  return `${durationDays} Day Jharkhand Itinerary - ${destination}
+Travelers: ${groupSize || 'Not specified'} | Interests: ${interestsText}
 
 ${itineraryDays.join('\n\n')}
 
-**Budget Estimate:** ₹2,500-5,000 per person per day
-**Best Time:** October to March
-**Tips:** Carry comfortable shoes, book accommodation in advance
+Estimated Total Budget: ${budgetEstimate} per person (approximate estimate; not live-verified)
 
-*This is a basic itinerary. For detailed AI-generated plans, please try again when our AI service is available.*
-  `;
+Best Time to Visit: October to March
+
+Travel Tips:
+• Carry comfortable shoes.
+• Keep drinking water with you.
+• Check local weather before visiting waterfalls.
+• Plan local transportation in advance.
+
+AI service unavailable; this is a basic itinerary.`;
 };
 
 /**
