@@ -138,7 +138,11 @@ Format the response as a structured itinerary with clear day divisions, timings,
     });
 
   } catch (error) {
-    console.error('Travel Planner Error:', error.message);
+    console.error('Travel Planner Error:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
 
     // Handle fallback gracefully on API error
     const fallbackItinerary = generateFallbackItinerary(req.body);
