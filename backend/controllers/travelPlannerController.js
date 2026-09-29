@@ -90,7 +90,7 @@ Format the response as a structured itinerary with clear day divisions, timings,
     const response = await axios.post(
       `${GROQ_BASE_URL}/chat/completions`,
       {
-        model: "llama-3.3-70b-versatile",
+        model: "openai/gpt-oss-120b",
         messages: [
           {
             role: "system",
@@ -102,7 +102,7 @@ Format the response as a structured itinerary with clear day divisions, timings,
           }
         ],
         temperature: 0.7,
-        max_tokens: Math.max(2000, durationDays * 600)
+        max_completion_tokens: Math.max(2000, durationDays * 600)
       },
       {
         headers: {
