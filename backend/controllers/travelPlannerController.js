@@ -4,15 +4,26 @@ const axios = require('axios');
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_BASE_URL = "https://api.groq.com/openai/v1";
 
+const parseDurationDays = (duration) => {
+  if (Number.isInteger(duration) && duration > 0) return duration;
+
+  const match = String(duration || '').trim().match(/^(\d+)\s*(days?|weeks?)?$/i);
+  if (!match) return 0;
+
+  const value = Number(match[1]);
+  return value > 0 ? value * (/^weeks?$/i.test(match[2] || '') ? 7 : 1) : 0;
+};
+
 /**
  * Generate AI-powered travel itinerary using Groq API
  */
 const generateItinerary = async (req, res) => {
   try {
     const { destination, duration, interests, budget, groupSize, accommodation } = req.body;
+    const durationDays = parseDurationDays(duration);
 
     // Validate required fields
-    if (!destination || !duration || !interests || !budget) {
+    if (!destination || !durationDays || !interests || !budget) {
       return res.status(400).json({
         success: false,
         error: 'Missing required fields: destination, duration, interests, and budget are required',
@@ -47,7 +58,8 @@ You are a professional travel planner specializing in Jharkhand, India tourism. 
 IMPORTANT: Focus ONLY on attractions in and around ${destination}, Jharkhand. Do NOT include attractions from other cities unless they are within reasonable travel distance (max 50km) from ${destination}.
 
 Destination: ${destination}, Jharkhand, India
-Duration: ${duration}
+Duration: exactly ${durationDays} calendar day${durationDays === 1 ? '' : 's'} (Day 1 through Day ${durationDays})
+REQUIRED: Include exactly ${durationDays} numbered day sections, one for every day from Day 1 to Day ${durationDays}. Do not omit, combine, or add any days. The itinerary must end on Day ${durationDays}.
 Interests: ${Array.isArray(interests) ? interests.join(', ') : interests}
 Budget: ${budget}
 Group Size: ${groupSize || 'Not specified'}
@@ -90,7 +102,7 @@ Format the response as a structured itinerary with clear day divisions, timings,
           }
         ],
         temperature: 0.7,
-        max_tokens: 2000
+        max_tokens: Math.max(2000, durationDays * 600)
       },
       {
         headers: {
@@ -102,12 +114,17 @@ Format the response as a structured itinerary with clear day divisions, timings,
     );
 
     const itinerary = response.data.choices[0].message.content;
+    const dayNumbers = [...itinerary.matchAll(/^\s*(?:#{1,6}\s*)?(?:\*\*)?Day\s+(\d+)\b/gim)]
+      .map((match) => Number(match[1]));
+    const hasExactDayCount = dayNumbers.length === durationDays
+      && dayNumbers.every((dayNumber, index) => dayNumber === index + 1);
+    const finalItinerary = hasExactDayCount ? itinerary : generateFallbackItinerary(req.body);
 
     // Return successful response
     res.json({
       success: true,
       data: {
-        itinerary,
+        itinerary: finalItinerary,
         requestDetails: {
           destination,
           duration,
@@ -140,6 +157,7 @@ Format the response as a structured itinerary with clear day divisions, timings,
  * Generate fallback itinerary when AI is unavailable
  */
 const generateFallbackItinerary = ({ destination, duration, interests, budget }) => {
+  const durationDays = parseDurationDays(duration) || 1;
   // Destination-specific attractions
   const destinationAttractions = {
     'Ranchi': {
@@ -205,22 +223,32 @@ const generateFallbackItinerary = ({ destination, duration, interests, budget })
     });
   }
 
+  const additionalDayThemes = [
+    'Wildlife & Scenic Views',
+    'Local Heritage & Cuisine',
+    'Outdoor Discovery',
+    'Nearby Attractions & Leisure'
+  ];
+  const itineraryDays = Array.from({ length: durationDays }, (_, index) => {
+    const dayNumber = index + 1;
+    if (dayNumber === 1) {
+      return `**Day 1: ${destInfo.day1}**\n- 9:00 AM: Visit ${destInfo.morning} (₹50)\n- 11:00 AM: ${destInfo.afternoon} (₹100)\n- 2:00 PM: Local lunch at ${destination} (₹300)\n- 4:00 PM: ${destInfo.evening} (₹200)`;
+    }
+    if (dayNumber === 2) {
+      return `**Day 2: Cultural & Nature Tour**\n- 8:00 AM: ${selectedAttractions[0] || destInfo.attractions[1]} (₹150)\n- 12:00 PM: Traditional Jharkhand lunch (₹250)\n- 3:00 PM: ${selectedAttractions[1] || destInfo.attractions[2]} (₹100)\n- 6:00 PM: Local market visit in ${destination} (₹200)`;
+    }
+
+    const attraction = destInfo.attractions[(dayNumber - 1) % destInfo.attractions.length];
+    const theme = additionalDayThemes[(dayNumber - 3) % additionalDayThemes.length];
+    return `**Day ${dayNumber}: ${theme}**\n- 9:00 AM: Explore ${attraction}\n- 12:00 PM: Enjoy traditional Jharkhand cuisine in ${destination}\n- 3:00 PM: Discover another local attraction or cultural experience`;
+  });
+
   return `
-**${duration} Jharkhand Itinerary - ${destination}**
+**${durationDays} Day${durationDays === 1 ? '' : 's'} Jharkhand Itinerary - ${destination}**
 
-**Day 1: ${destInfo.day1}**
-- 9:00 AM: Visit ${destInfo.morning} (₹50)
-- 11:00 AM: ${destInfo.afternoon} (₹100)
-- 2:00 PM: Local lunch at ${destination} (₹300)
-- 4:00 PM: ${destInfo.evening} (₹200)
+${itineraryDays.join('\n\n')}
 
-**Day 2: Cultural & Nature Tour**
-- 8:00 AM: ${selectedAttractions[0] || destInfo.attractions[1]} (₹150)
-- 12:00 PM: Traditional Jharkhand lunch (₹250)
-- 3:00 PM: ${selectedAttractions[1] || destInfo.attractions[2]} (₹100)
-- 6:00 PM: Local market visit in ${destination} (₹200)
-
-**Budget Estimate:** ₹2,500-5,000 per person
+**Budget Estimate:** ₹2,500-5,000 per person per day
 **Best Time:** October to March
 **Tips:** Carry comfortable shoes, book accommodation in advance
 

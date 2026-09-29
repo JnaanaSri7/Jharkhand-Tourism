@@ -48,6 +48,23 @@ interface ApiResponse {
   fallback?: string;
 }
 
+const createFallbackItinerary = (destination: string, budget: string, groupSize: string, durationDays: number): string => {
+  const dayPlans = [
+    `Arrival & Waterfalls — Visit famous cascades near ${destination} (Hundru Falls, Jonha Falls) and enjoy traditional Dhuska & Litti Chokha.`,
+    "Heritage & Nature — Explore Patratu Valley, Baidyanath Temple, and local tribal art workshops.",
+    "Wildlife & Scenic Views — Experience Betla National Park and Netarhat Sunset Point.",
+    "Local Discovery — Explore nearby attractions, sample regional cuisine, and visit a local market."
+  ];
+  const days = Array.from({ length: Math.max(1, durationDays) }, (_, index) => {
+    const plan = dayPlans[Math.min(index, dayPlans.length - 1)];
+    return `- **Day ${index + 1}**: ${plan}`;
+  });
+
+  return `### 🌟 Customized Jharkhand Itinerary (${destination})
+- **Duration**: ${durationDays} day${durationDays === 1 ? "" : "s"} | **Budget**: ${budget} | **Travelers**: ${groupSize}
+${days.join("\n")}`;
+};
+
 function TravelPlannerContent() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState<TravelPlannerForm>({
@@ -87,18 +104,17 @@ function TravelPlannerContent() {
   }, [searchParams]);
 
   // Helper function to calculate duration from dates
+  const calculateDurationDays = (startDate: string, endDate: string): number => {
+    if (!startDate || !endDate) return 0;
+
+    const start = new Date(`${startDate}T00:00:00Z`).getTime();
+    const end = new Date(`${endDate}T00:00:00Z`).getTime();
+    return Math.max(0, Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1);
+  };
+
   const calculateDuration = (startDate: string, endDate: string): string => {
-    if (!startDate || !endDate) return "0 days";
-    
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = Math.abs(end.getTime() - start.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) return "1 day";
-    if (diffDays <= 7) return `${diffDays} days`;
-    if (diffDays <= 14) return `${Math.ceil(diffDays / 7)} week${diffDays > 7 ? 's' : ''}`;
-    return `${Math.ceil(diffDays / 7)} weeks`;
+    const days = calculateDurationDays(startDate, endDate);
+    return `${days} day${days === 1 ? "" : "s"}`;
   };
 
   const interestOptions = [
@@ -122,12 +138,12 @@ function TravelPlannerContent() {
     setShowResult(false);
 
     // Calculate duration from dates
-    const duration = calculateDuration(formData.startDate, formData.endDate);
+    const durationDays = calculateDurationDays(formData.startDate, formData.endDate);
     
     // Prepare data for API (convert to old format for backend compatibility)
     const apiData = {
       destination: formData.destination,
-      duration: duration,
+      duration: durationDays,
       interests: formData.interests,
       budget: formData.budget,
       groupSize: formData.groupSize,
@@ -159,11 +175,7 @@ function TravelPlannerContent() {
         setGeneratedItinerary(data.data.itinerary);
         setShowResult(true);
       } else {
-        const fallbackText = `### 🌟 Customized Jharkhand Itinerary (${targetDest})
-- **Duration**: ${duration} | **Budget**: ${targetBud} | **Travelers**: ${targetGrp}
-- **Day 1**: Arrival & Waterfalls — Visit famous cascades near ${targetDest} (Hundru Falls, Jonha Falls) and enjoy traditional Dhuska & Litti Chokha.
-- **Day 2**: Heritage & Nature — Explore Patratu Valley, Baidyanath Temple, and local tribal art workshops.
-- **Day 3**: Wildlife & Scenic Views — Experience Betla National Park and Netarhat Sunset Point before departure.`;
+        const fallbackText = createFallbackItinerary(targetDest, targetBud, targetGrp, durationDays);
         setGeneratedItinerary(data.fallback || fallbackText);
         setShowResult(true);
       }
@@ -172,11 +184,7 @@ function TravelPlannerContent() {
       const targetDest = formData.destination || 'Jharkhand Highlights';
       const targetBud = formData.budget || 'Medium';
       const targetGrp = formData.groupSize || '2 people';
-      const fallbackText = `### 🌟 Customized Jharkhand Itinerary (${targetDest})
-- **Duration**: ${duration} | **Budget**: ${targetBud} | **Travelers**: ${targetGrp}
-- **Day 1**: Arrival & Waterfalls — Visit famous cascades near ${targetDest} (Hundru Falls, Jonha Falls) and enjoy traditional Dhuska & Litti Chokha.
-- **Day 2**: Heritage & Nature — Explore Patratu Valley, Baidyanath Temple, and local tribal art workshops.
-- **Day 3**: Wildlife & Scenic Views — Experience Betla National Park and Netarhat Sunset Point before departure.`;
+      const fallbackText = createFallbackItinerary(targetDest, targetBud, targetGrp, durationDays);
       setGeneratedItinerary(fallbackText);
       setShowResult(true);
     } finally {
