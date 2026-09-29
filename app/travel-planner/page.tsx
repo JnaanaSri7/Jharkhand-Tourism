@@ -80,6 +80,7 @@ function TravelPlannerContent() {
   const [generatedItinerary, setGeneratedItinerary] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string>("");
+  const [shareFeedback, setShareFeedback] = useState<{ message: string; isError: boolean } | null>(null);
   const [showResult, setShowResult] = useState(false);
 
   // Initialize AOS
@@ -196,6 +197,47 @@ function TravelPlannerContent() {
     setShowResult(false);
     setGeneratedItinerary("");
     setError("");
+    setShareFeedback(null);
+  };
+
+  const handleDownloadItinerary = () => {
+    if (!generatedItinerary) return;
+
+    const file = new Blob([generatedItinerary], { type: "text/plain;charset=utf-8" });
+    const fileUrl = URL.createObjectURL(file);
+    const downloadLink = document.createElement("a");
+    downloadLink.href = fileUrl;
+    downloadLink.download = "Jharkhand-Tourism-Itinerary.txt";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+    window.setTimeout(() => URL.revokeObjectURL(fileUrl), 0);
+  };
+
+  const handleShareItinerary = async () => {
+    if (!generatedItinerary) return;
+    setShareFeedback(null);
+
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({
+          title: "Jharkhand Tourism Itinerary",
+          text: generatedItinerary
+        });
+        setShareFeedback({ message: "Itinerary shared successfully!", isError: false });
+      } catch (shareError) {
+        if (shareError instanceof DOMException && shareError.name === "AbortError") return;
+        setShareFeedback({ message: "Unable to share the itinerary. Please try again.", isError: true });
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(generatedItinerary);
+      setShareFeedback({ message: "Itinerary copied to clipboard!", isError: false });
+    } catch {
+      setShareFeedback({ message: "Unable to copy the itinerary. Check clipboard permissions and try again.", isError: true });
+    }
   };
 
   return (
@@ -903,6 +945,7 @@ function TravelPlannerContent() {
                           <div className="h-0.5 w-12 mx-auto rounded-full" style={{ background: '#f4d03f' }}></div>
                         </div>
                         <button 
+                          onClick={handleDownloadItinerary}
                           className="btn w-full flex items-center justify-center gap-2"
                           style={{
                             background: '#f4d03f',
@@ -914,9 +957,10 @@ function TravelPlannerContent() {
                           }}
                         >
                           <Download className="h-4 w-4" />
-                          Download PDF
+                          Download Itinerary
                         </button>
                         <button 
+                          onClick={handleShareItinerary}
                           className="btn w-full flex items-center justify-center gap-2"
                           style={{
                             background: 'transparent',
@@ -930,6 +974,16 @@ function TravelPlannerContent() {
                           <Share2 className="h-4 w-4" />
                           Share Itinerary
                         </button>
+                        {shareFeedback && (
+                          <p
+                            role="status"
+                            aria-live="polite"
+                            className="text-center text-sm"
+                            style={{ color: shareFeedback.isError ? '#f87171' : '#f4d03f' }}
+                          >
+                            {shareFeedback.message}
+                          </p>
+                        )}
                         <Link href="/destinations" className="block">
                           <button 
                             className="btn w-full flex items-center justify-center gap-2"
